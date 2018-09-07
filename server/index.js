@@ -194,11 +194,9 @@ io.on('connection', socket => {
 	
 	// When a user refreshes bot inventory, send them the most up to date array
 	socket.on('loadBotInventory', function() {
-		setTimeout(function() {
-			socket.emit('botInvLoaded', {
-				botInventory: botInventory
-			});
-		}, 500);
+		socket.emit('botInvLoaded', {
+			botInventory: botInventory
+		});
 	});
 	
 	// When a user requests an inventory refresh:
