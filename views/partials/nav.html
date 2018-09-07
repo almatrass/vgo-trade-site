@@ -1,0 +1,19 @@
+<nav class="navbar navbar-expand-sm mainNav navbar-dark">
+	<div class="container">
+		<a class="navbar-brand" href="https://gain.gg" target="_blank"><img class="navLogoImg" src="/public/img/logo.svg"></a>
+		<ul class="navbar-nav">
+			<li class="nav-item">
+				<a class="nav-link" href="/"><i class="fas fa-exchange-alt"></i> Trade</a>
+			</li>
+			{{#if user}}
+			<li class="nav-item">
+				<a class="nav-link" href="/logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
+			</li>
+			{{else}}
+			<li class="nav-item steamNavContain">
+				<a class="nav-link opskinsNavBtn" href="/auth/opskins"><button type="button" class="btn accentBtn opskinsBtn"><img class="opskinsBtnImg float-left" src="/public/img/opskinsLogo.svg"> <span class="opskinsBtnText">OPSkins Sign-In</span></button></a>
+			</li>
+			{{/if}}
+		</ul>
+	</div>
+</nav>

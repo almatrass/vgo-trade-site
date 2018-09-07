@@ -1,0 +1,93 @@
+<div class="almaContainer startMainContent" ng-app="mainApp" ng-controller="mainCtrl">
+	<div class="row mainTrade">
+		<div class="col-md-5 userTrade sr">
+			<div class="card">
+				<div class="card-header">
+					<div class="row">
+						<div class="col-sm-8">
+							<h4><i class="fas fa-sync-alt refreshBtn" ng-click="refreshUserInv()"></i> Your inventory</h4>
+						</div>
+						<div class="col-sm-4">
+							<div class="totalValueContain float-right z-depth-1" ng-bind="getValue('user') | currency">$0.00</div>
+						</div>
+					</div>
+					<div class="row startMainContent">
+						<div class="col-sm-6">
+							<div class="form-group">
+								<input type="text" class="form-control" placeholder="Search for items" ng-model="userInvSearch">
+							</div>
+						</div>
+						<div class="col-sm-6 text-right">
+							<div class="dropdown">
+								<button type="button" class="btn btn-primary dropdown-toggle accentBtn" data-toggle="dropdown">
+									Sorting
+								</button>
+								<div class="dropdown-menu">
+									<a class="dropdown-item" ng-click="changeOrderBy('price', 'user')">Price: Low to High</a>
+									<a class="dropdown-item" ng-click="changeOrderBy('-price', 'user')">Price: High to Low</a>
+									<a class="dropdown-item" ng-click="changeOrderBy('name', 'user')">Name: Ascending</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="card-body text-center tradeBody" id="userTradeBody">
+					<div class="mainLoader userItemsLoader"></div>
+					<div class="itemBox {[{x.id}]}" ng-repeat="x in userInventory | orderBy: userOrderBy | filter: {'name': userInvSearch}" ng-click="itemClick(x.id, x.price, 'user')" ng-style="getStyle(x.id, 'user')"  data-toggle="tooltip" title="{[{x.name}]}" style="border: 1px solid {[{x.color}]}">
+						<div class="itemPrice" ng-bind="x.price | currency"></div>
+						<img class="itemImg" src='{[{x.img}]}'>
+						<div class="itemName truncate" ng-bind="x.name"></div>
+					</div>
+					<h5 ng-show="!userInventory.length">{{#if user}}We couldn't find any items!{{else}}Please login to trade!{{/if}}</h5>
+					{{#unless user}}
+					<a class="nav-link opskinsNavBtn" href="/auth/opskins"><button type="button" class="btn accentBtn opskinsBtn"><img class="opskinsBtnImg float-left" src="/public/img/opskinsLogo.svg"> <span class="opskinsBtnText">OPSkins Sign-In</span></button></a>
+					{{/unless}}
+				</div> 
+			</div>
+		</div>
+		<div class="col-md-2 text-center">
+			{{> middlesection}}
+		</div>
+		<div class="col-md-5 botTrade sr">
+			<div class="card">
+				<div class="card-header">
+					<div class="row">
+						<div class="col-sm-8">
+							<h4><i class="fas fa-sync-alt refreshBtn" ng-click="refreshBotInv()"></i> Bot inventory</h4>
+						</div>
+						<div class="col-sm-4">
+							<div class="totalValueContain float-right z-depth-1" ng-bind="getValue() | currency">$0.00</div>
+						</div>
+					</div>
+					<div class="row startMainContent">
+						<div class="col-sm-6">
+							<div class="form-group">
+								<input type="text" class="form-control" placeholder="Search for items" ng-model="botInvSearch">
+							</div>
+						</div>
+						<div class="col-sm-6 text-right">
+							<div class="dropdown">
+								<button type="button" class="btn btn-primary dropdown-toggle accentBtn" data-toggle="dropdown">
+									Sorting
+								</button>
+								<div class="dropdown-menu">
+									<a class="dropdown-item" ng-click="changeOrderBy('price')">Price: Low to High</a>
+									<a class="dropdown-item" ng-click="changeOrderBy('-price')">Price: High to Low</a>
+									<a class="dropdown-item" ng-click="changeOrderBy('name')">Name: Ascending</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="card-body text-center tradeBody" id="botTradeBody">
+					<div class="mainLoader botItemsLoader"></div>
+					<div class="itemBox {[{x.id}]}" ng-repeat="x in botInventory | orderBy: botOrderBy | filter: {'name': botInvSearch}" ng-click="itemClick(x.id, x.price)" ng-style="getStyle(x.id)" data-toggle="tooltip" title="{[{x.name}]}" style="border: 1px solid {[{x.color}]}">
+						<div class="itemPrice" ng-bind="x.price | currency"></div>
+						<img class="itemImg" src='{[{x.img}]}'>
+						<div class="itemName truncate" ng-bind="x.name"></div>
+					</div>
+				</div> 
+			</div>
+		</div>
+	</div>
+</div>

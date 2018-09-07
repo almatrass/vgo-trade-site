@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		{{> head}}
+		<title>{{siteName}} - Trade VGO skins instantly!</title>
+	</head>
+	<body>
+		{{> nav}}
+		{{> maintrade}}
+		
+		{{> modals}}
+		
+		<script src="/socket.io/socket.io.js"></script>
+		<script>
+			let socket = io();
+		</script>
+		<script src="/public/js/main.js"></script>
+	</body>
+</html>

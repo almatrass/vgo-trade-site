@@ -1,0 +1,47 @@
+<!-- Sending trade modal -->
+<div class="modal fade" id="modalTrade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Trade</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body modalTradeBody text-center"></div>
+    </div>
+  </div>
+</div>
+
+<!-- Rates modal -->
+<div class="modal fade" id="ratesModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Rates</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <table class="table ratesTable">
+					<thead>
+						<tr>
+							<th>User</th>
+							<th class="text-center">Type</th>
+							<th class="text-right">Bot</th>
+						</tr>
+					</thead>
+				<tbody>
+					<tr>
+						<td>{{getDecimalPercentage rates.keyUserRate}}%</td>
+						<td class="text-center">Keys</td>
+						<td class="text-right">{{getDecimalPercentage rates.keyBotRate}}%</td>
+					</tr>
+					<tr>
+						<td>{{getDecimalPercentage rates.otherUserRate}}%</td>
+						<td class="text-center">Other</td>
+						<td class="text-right">{{getDecimalPercentage rates.otherBotRate}}%</td>
+					</tr>
+				</tbody>
+			</table>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,180 @@
+/* This code was written by Almatrass. It
+is free to use however you wish. */
+
+/* Let's do some general stuff before
+we get started... */
+
+/* Set a nice light background */
+body {
+	background-color: #F4F4F4;
+}
+
+/* Hide elements so we can reveal
+them with a cool effect */
+.sr {
+	visibility: hidden;
+}
+
+/* Set a nice orange color for buttons
+designed to draw user attention ;) */
+.accentBtn,
+.accentBtn:hover,
+.accentBtn:active,
+.accentBtn:focus {
+	color: white !important;
+	background-color: #FF9800 !important;
+	border: 1px solid #d37b00 !important;
+}
+
+/* Unimportant text */
+.secondary-text {
+	color: #757575;
+}
+
+/* Handy class for spacing things out a little */
+.startMainContent {
+	margin-top: 25px;
+}
+
+/* Why even use a regular container when you can 
+use an Alma container?? ;) */
+.almaContainer {
+	max-width: 2000px;
+	margin: 25px auto;
+}
+
+/* Nice light blue nav color */
+.mainNav {
+	background-color: #2196F3;
+}
+
+/* Set nav logo height */
+.navLogoImg {
+	height: 35px;
+}
+
+/* Truncate stuff so it doesn't mess up the bootstrap grid */
+.truncate {
+	display: block;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+/* Hide stuff */
+.hidden {
+	display: none;
+}
+
+/* Bootstrap is trolling me */
+.btn:not(:disabled):not(.disabled) {
+	opacity: 1 !important;
+}
+
+/* Give a little depth to important things */
+.z-depth-1 {
+	box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 
+		0 3px 1px -2px rgba(0, 0, 0, 0.12), 
+		0 1px 5px 0 rgba(0, 0, 0, 0.2);
+}
+
+/* Make item boxes look nice */
+.itemBox {
+	width: 25%;
+	border: 1px solid #BDBDBD;
+	position: relative;
+	display: inline-block;
+	margin: 0;
+	cursor: pointer;
+	padding: 5px;
+}
+
+.itemImg {
+	width: 100%;
+}
+
+.itemName {
+	font-size: 12px;
+}
+
+.itemPrice {
+	color: #757575;
+	position: absolute;
+	left: 7px;
+	top: 1px;
+}
+
+/* Bring the main trading area away
+from the sides a litte */
+.mainTrade {
+	margin: 0 10px;
+}
+
+/* So people know to click them, and
+get rid of that stupid # in the URL */
+.dropdown-item {
+	cursor: pointer;
+}
+
+/* Selected value container */
+.totalValueContain {
+	background-color: white;
+	padding: 5px
+}
+
+/* Have a nice big trade button ;) */
+.tradeBtn {
+	width: 100%;
+}
+
+/* Restrict the item container */
+.tradeBody {
+	max-height: 600px;
+	overflow-y: auto;
+}
+
+.opskinsNavBtn {
+	height: 40px;
+	padding: 2.5px 0;
+}
+
+.ratesTable {
+	background-color: white;
+}
+
+.mainLoader {
+	border: 6px solid #f3f3f3;
+	border-top: 6px solid #0288D1;
+	border-radius: 50%;
+	width: 50px;
+	height: 50px;
+	animation: spin 0.5s linear infinite;
+	margin: 0 auto;
+}
+
+@keyframes spin {
+	0% { transform: rotate(0deg); }
+	100% { transform: rotate(360deg); }
+}
+
+.refreshBtn {
+	cursor: pointer;
+}
+
+.opskinsBtnImg {
+	height: 24px;
+	margin-right: 6px;
+}
+
+.opskinsBtnText {
+	color: black;
+}
+
+.tradeStatusFa {
+	font-size: 50px;
+}
+
+.centerAdvert {
+	max-width: 80%;
+	margin-bottom: 15px;
+}
