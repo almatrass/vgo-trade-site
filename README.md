@@ -4,6 +4,8 @@
 
 vgo-trade-site is a simple trading site for VGO, build to show off the WAX Expresstrade API.
 
+You can view an example of the site here: https://trade.gain.gg
+
 ### Setup
 #### Video tutorial
 You can find a video tutorial here: (insert video URL here)
