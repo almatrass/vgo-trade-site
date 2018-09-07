@@ -1,5 +1,5 @@
 # vgo-trade-site
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/almatrass/FontEasy/blob/master/LICENSE.MD)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/almatrass/vgo-trade-site/blob/master/LICENSE)
 ***
 
 vgo-trade-site is a simple trading site for VGO, build to show off the WAX Expresstrade API.
