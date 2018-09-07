@@ -120,8 +120,8 @@ passport.deserializeUser((obj, done) => {
 
 // Setup OPSkins sign-in
 let OpskinsAuth = new opAuth.init({
-	name: 'Testing',
-	returnURL: 'http://localhost:3037/auth/opskins/authenticate',
+	name: config.loginName,
+	returnURL: config.url,
 	apiKey: config.opskinsApiKey,
 	scopes: 'identity',
 	mobile: true

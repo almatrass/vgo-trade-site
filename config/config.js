@@ -8,6 +8,7 @@ module.exports = {
 		profileLink: 'https://steamcommunity.com/id/almatrass', // This is where this name will link to
 	},
 	siteName: 'trade.gain.gg', // Site name - For trade messages and site title
+	loginName: 'trade.gain.gg', // Site name - Displayed on OPSkins login screen
 	tradeMessage: `Trade offer from trade.gain.gg. Please verify the trade is correct before accepting. Thanks for using trade.gain.gg!`,
 	url: 'localhost', // Redirect URL - including port if applicable
 	port: 80, // Server port. Don't change this unless you're reverse proxying
