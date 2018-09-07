@@ -10,7 +10,7 @@ module.exports = {
 	siteName: 'trade.gain.gg', // Site name - For trade messages and site title
 	loginName: 'trade.gain.gg', // Site name - Displayed on OPSkins login screen
 	tradeMessage: `Trade offer from trade.gain.gg. Please verify the trade is correct before accepting. Thanks for using trade.gain.gg!`,
-	url: 'http://localhost/', // Redirect URL - including port if applicable
+	returnUrl: 'http://localhost/auth/opskins/return', // Redirect URL - including port if applicable
 	port: 80, // Server port. Don't change this unless you're reverse proxying
 	opskinsApiKey: '8fad9023jhf9kasdaf83245hj09faf', // OPSkins API key
 	opskinsSecret: 'SHGJKASDF8KJL23J', // OPSkins 2FA Secret
