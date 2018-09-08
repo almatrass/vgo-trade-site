@@ -8,7 +8,7 @@ You can view an example of the site here: http://trade.gain.gg
 
 ### Setup
 #### Video tutorial
-You can find a video tutorial here: (insert video URL here)
+You can find a video tutorial here: https://www.youtube.com/watch?v=u7EyEQszX94&t=121s
 
 #### Quick setup
 First, make sure you have node.js installed, which you can do here: https://nodejs.org/
@@ -33,4 +33,9 @@ Now you're ready, run:
 > npm start
 ```
 
-Visit 'localhost' in your browser, and the site should be fully functional. 
+Visit 'localhost' in your browser, and the site should be fully functional.
+
+If you're deploying to a VPS, make sure to change the returnUrl value to this format:
+```js
+returnUrl: 'http://*YOUR IP*/auth/opskins/authenticate'
+```
