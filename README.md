@@ -4,7 +4,9 @@
 
 vgo-trade-site is a simple trading site for VGO, build to show off the WAX Expresstrade API.
 
-You can view an example of the site here: http://trade.gain.gg
+You can view an example of the site here: http://trade.gain.gg.
+
+You may use the site for commercial purposes free of charge.
 
 ### Setup
 #### Video tutorial
@@ -42,15 +44,18 @@ returnUrl: 'http://382.73.93.763:4073/auth/opskins/authenticate'
 
 ##### opskinsApiKey and opskinsSecret
 You can find your OPSkins API key on the OPSkins website in your advanced options of your account.
+
 To access the secret, you need to setup 2FA on your account with a program that supports secret exports.
+
 You can find one for Chrome here: https://chrome.google.com/webstore/detail/authenticator/bhghoamapcdpbohphigoooaddinpkbai.
+
 Consult the video tutorial if you're still having problems.
 
 The API and secret values are used for the account sending the bot trades.
+
 The API key is also used for OPSkins login.
 
 All other config stuff is optional for the functionality of the site, but look through it and edit what you like.
-
 
 #### Install modules
 You should still be in the directory you have your site, in my case `/Users/Almatrass/Documents/vgo-trade-site-master`
@@ -69,7 +74,9 @@ Visit 'localhost' in your browser, and the site should be fully functional.
 
 ### Deploying to VPS
 First step is creating a VPS. You can do this with a site like DigitalOcean.
+
 You will receive a bonus $10 when you deposit $5 if you use my referral link here: https://m.do.co/c/126d9f75d958
+
 Refer to the video tutorial for setting up the server.
 
 Once the server is created, you will need two programs: Filezilla and PuTTY.
@@ -110,5 +117,7 @@ $ pm2 logs index
 
 ### Editing the code
 All HTML files are located in the `views` directory.
+
 All public files (js, css and images)  are located in the `public` directory.
+
 All the backend code is located in the `server` directory.
