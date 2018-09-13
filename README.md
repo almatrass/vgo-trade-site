@@ -6,6 +6,8 @@ vgo-trade-site is a simple trading site for VGO, build to show off the WAX Expre
 
 You can view an example of the site here: http://trade.gain.gg.
 
+You can support my projects by using my DigitalOcean referral link (bonus $10 when you deposit $5): https://m.do.co/c/126d9f75d958
+
 You may use the site for commercial purposes free of charge.
 
 ### Setup
@@ -77,19 +79,28 @@ First step is creating a VPS. You can do this with a site like DigitalOcean.
 
 You will receive a bonus $10 when you deposit $5 if you use my referral link here: https://m.do.co/c/126d9f75d958
 
-Refer to the video tutorial for setting up the server.
+Refer to the video tutorial for creating a new droplet.
 
-Once the server is created, you will need two programs: Filezilla and PuTTY.
+Once the droplet is created, you will need two programs: Filezilla and PuTTY (or a built-in SSH client).
 
 First, use Filezilla to logon to the server, then switch to your `/` directory.
 
-Create a new directory called `vgo-trade`, or whatever you like.
+Create a new directory called `vgo-trade`, or whatever you like, then enter it. 
 
-Enter the directory. At this point you want to move all the files into this directory from your local machine, but be sure to omit the node modules folder, or this will take forever.
+You can do this from your console if you prefer
+```bash
+$ mkdir /vgo-trade
+```
+
+At this point you want to move all the files into this directory from your local machine, but be sure to omit the node modules folder, or this will take forever.
 
 Now login via PuTTY, and change into the directory.
 ```bash
 $ cd /vgo-trade
+```
+Run `pwd` to check where you are, if all is good, you'll see this:
+```bash
+/vgo-trade
 ```
 
 Now you can run
@@ -98,7 +109,14 @@ $ npm i
 ```
 again to install the node modules.
 
-We will use PM2 to keep our process running forever:
+Before spawning our process forever, test if the server is working, by running:
+```bash
+$ node ./server/index.js
+```
+
+Visit your IP address in a browser, and you should see the site.
+
+We will now use PM2 to keep our process running forever:
 ```bash
 $ npm i -g pm2
 ```
@@ -115,9 +133,23 @@ To view process logs at anytime, you can logon to your VPS and run
 $ pm2 logs index
 ```
 
+If your node server crashes, PM2 will automatically spawn a new process.
+
+If your droplet crashes or reboots, simply come back on and spawn the process again:
+```bash
+$ pm2 start /vgo-trade/server/index.js
+```
+or
+```bash
+$ cd /vgo-trade
+$ pm2 start ./server/index.js
+```
+
 ### Editing the code
 All HTML files are located in the `views` directory.
 
 All public files (js, css and images)  are located in the `public` directory.
 
 All the backend code is located in the `server` directory.
+
+Please open an issue if you discover any bugs.

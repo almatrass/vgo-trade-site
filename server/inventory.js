@@ -40,7 +40,7 @@ function getBotInventory(cb) {
 						// Check if the bot item is banned by us in config:
 						if (config.bannedBotItems.length) {
 							config.bannedBotItems.forEach(function(bannedItem) {
-								if (bannedItem == item.name) {
+								if (item.name.toUpperCase().includes(bannedItem.toUpperCase())) {
 									banned = true;
 								}
 							});
@@ -125,7 +125,7 @@ function getUserInventory(steamid, refresh, force, cb) {
 								// Check if the user item is banned by us in config:
 								if (config.bannedUserItems.length) {
 									config.bannedUserItems.forEach(function(bannedItem) {
-										if (bannedItem == item.name) {
+										if (item.name.toUpperCase().includes(bannedItem.toUpperCase())) {
 											banned = true;
 										}
 									});

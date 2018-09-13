@@ -273,7 +273,7 @@ io.on('connection', socket => {
 								localBotInv.forEach(function(realBotItem) {
 									if (proposedItem == realBotItem.id) {
 										config.bannedBotItems.forEach(function(bannedItem) {
-											if (realBotItem.name == bannedItem) {
+											if (realBotItem.name.toUpperCase().includes(bannedItem.toUpperCase())) {
 												itemBanned = true;
 											}
 										});
@@ -284,7 +284,7 @@ io.on('connection', socket => {
 								localUserInv.forEach(function(realUserItem) {
 									if (proposedItem == realUserItem.id) {
 										config.bannedUserItems.forEach(function(bannedItem) {
-											if (realUserItem.name == bannedItem) {
+											if (realUserItem.name.toUpperCase().includes(bannedItem.toUpperCase())) {
 												itemBanned = true;
 											}
 										});

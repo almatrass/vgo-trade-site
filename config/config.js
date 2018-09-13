@@ -26,7 +26,7 @@ module.exports = {
 		minBot: 0.01, // Minimum bot item value
 		maxBot: 1000 // Maximum bot item value
 	},
-	bannedBotItems: [], // Enter the EXACT name (including CAPS) of items you wish the bot NOT to give or show. Should follow this pattern: ['item1', 'item2', 'item3'] etc... - make sure you include quotes. Leave as [] to not ban any items.
+	bannedBotItems: [], // Enter the name of items you wish the bot NOT to give or show. Server now checks if the name INCLUDES the values entered, so be sure not to be too vague. Should follow this pattern: ['item1', 'item2', 'item3'] etc... - make sure you include quotes. Leave as [] to not ban any items.
 	bannedUserItems: [], // Exactly the same as above, except this is to ban items to accept.
 	refreshTimeout: 5, // The time in seconds between allowed user inventory refreshes.
 	botInventoryRefreshTime: 30, // The time in seconds for refreshing the bot inventory.
