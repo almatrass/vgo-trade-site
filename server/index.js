@@ -242,123 +242,139 @@ io.on('connection', socket => {
 			if (data) {
 				if (data.length) {
 					
-					// Check if it's an admin
-					let admin;
-					config.adminSteamIds.forEach(function(person) {
-						if (person == socketuser.id64) {
-							admin = person;
-						}
-					});
-					
-					// Since OPSkins don't separate the two sides of the trade, we'll verify both
-					// inventories to make sure items belong to the correct parties.
-					inventory.getUserInventory(socketuser.id64, true, true, (err, localInventory) => {
-						if (err) {
-							console.error(err);
-							socket.emit('tradeFailed', `An error occurred, please try again`);
-						} else {
-							let localUserInv = localInventory.inventory;
-							let localBotInv = botInventory;
-							let proposedUserItems = [];
-							let proposedBotItems = [];
-							let botTotalValue = 0;
-							let userTotalValue = 0;
+          let counts = [];
+          let dupes;
+          
+          for (let i = 0; i <= data.length; i++) {
+            if (counts[data[i]] === undefined) {
+              counts[data[i]] = 1;
+            } else {
+              dupes = true;
+            }
+          }
+          
+          if (!dupes) {
+            // Check if it's an admin
+            let admin;
+            config.adminSteamIds.forEach(function(person) {
+              if (person == socketuser.id64) {
+                admin = person;
+              }
+            });
 
-							let itemBanned;
-							// For each proposed item, add it to the correct
-							// separate array: either bot or user. Indicate a
-							// banned item if it's present: shouldn't be, as
-							// inventories are filtered when fetched anyway.
-							data.forEach(function(proposedItem) {
-								localBotInv.forEach(function(realBotItem) {
-									if (proposedItem == realBotItem.id) {
-										config.bannedBotItems.forEach(function(bannedItem) {
-											if (realBotItem.name.toUpperCase().includes(bannedItem.toUpperCase())) {
-												itemBanned = true;
-											}
-										});
-										proposedBotItems.push(realBotItem);
-										botTotalValue += realBotItem.price;
-									}
-								});
-								localUserInv.forEach(function(realUserItem) {
-									if (proposedItem == realUserItem.id) {
-										config.bannedUserItems.forEach(function(bannedItem) {
-											if (realUserItem.name.toUpperCase().includes(bannedItem.toUpperCase())) {
-												itemBanned = true;
-											}
-										});
-										proposedUserItems.push(realUserItem);
-										userTotalValue += realUserItem.price;
-									}
-								});
-							});
+            // Since OPSkins don't separate the two sides of the trade, we'll verify both
+            // inventories to make sure items belong to the correct parties.
+            inventory.getUserInventory(socketuser.id64, true, true, (err, localInventory) => {
+              if (err) {
+                console.error(err);
+                socket.emit('tradeFailed', `An error occurred, please try again`);
+              } else {
+                let localUserInv = localInventory.inventory;
+                let localBotInv = botInventory;
+                let proposedUserItems = [];
+                let proposedBotItems = [];
+                let botTotalValue = 0;
+                let userTotalValue = 0;
 
-							// Double check that none of the items are blacklisted in
-							// case the user is trying to trying to trick us and send
-							// a custom item array.
-							if (!itemBanned || admin) {
+                let itemBanned;
+                // For each proposed item, add it to the correct
+                // separate array: either bot or user. Indicate a
+                // banned item if it's present: shouldn't be, as
+                // inventories are filtered when fetched anyway.
+                data.forEach(function(proposedItem) {
+                  localBotInv.forEach(function(realBotItem) {
+                    if (proposedItem == realBotItem.id) {
+                      config.bannedBotItems.forEach(function(bannedItem) {
+                        if (realBotItem.name.toUpperCase().includes(bannedItem.toUpperCase())) {
+                          itemBanned = true;
+                        }
+                      });
+                      proposedBotItems.push(realBotItem);
+                      botTotalValue += realBotItem.price;
+                    }
+                  });
+                  localUserInv.forEach(function(realUserItem) {
+                    if (proposedItem == realUserItem.id) {
+                      config.bannedUserItems.forEach(function(bannedItem) {
+                        if (realUserItem.name.toUpperCase().includes(bannedItem.toUpperCase())) {
+                          itemBanned = true;
+                        }
+                      });
+                      proposedUserItems.push(realUserItem);
+                      userTotalValue += realUserItem.price;
+                    }
+                  });
+                });
 
-								// Make sure the length of the real items is the same as 
-								// originally requested. This is different if any selected
-								// items can't be found in either inventory
-								if ((proposedBotItems.concat(proposedUserItems)).length == data.length || admin) {
-									let idArr = [];
-									proposedBotItems.forEach(function(botItem) {
-										idArr.push(botItem.id);
-									});
-									proposedUserItems.forEach(function(userItem) {
-										idArr.push(userItem.id);
-									});
-									
-									// If the value of the bot items is less than the user's items.
-									// If they're an admin the values are ignored
-									if (botTotalValue <= userTotalValue || admin) {
-										// Let the user know we're sending their offer now
-										socket.emit('changeTradeStatus', `Sending offer...`);
-										
-										// Send the offer using the expresstrade module
-										ET.ITrade.SendOfferToSteamId({steam_id: socketuser.id64, items: idArr.toString(), message: config.tradeMessage}, (err, body) => {
-											if (err) {
-												console.error(err);
-												socket.emit('tradeFailed', `An error occurred, please try again`);
-											} else {
-												// If status is 1, trade was sent successfully
-												if (body.status == 1) {
-													// Let the user know that the trade is successful.
-													// Send the client the offerid, so it can generate 
-													// a link to the offer. Send out an array of item ids,
-													// so they can be removed from view.
-													socket.emit('tradeSuccess', `Trade offer sent!`, body.response.offer.id, idArr);
-													let notif = `[SENT TRADE]`;
-													if (admin) {
-														notif = `[ADMIN SENT TRADE]`;
-													}
-													// Log that an offer has been sent.
-													console.log(`
-${notif} - Awaiting accept
-Offer ID: ${body.response.offer.id}`);
-												} else {
-													// If status is not 1, something went wrong.
-													console.error(new Error(body.message));
-													socket.emit('tradeFailed', `An error occurred, please try again`);
-												}
-											}
-										});
-									} else {
-										socket.emit('alert', `Your items must be less than the bot's items! Please add more items to the trade`, 'error');
-										socket.emit('tradeFailed', `Your items must be less than the bot's items! Please add more items to the trade`);
-									}
-								} else {
-									socket.emit('alert', `One or more selected items don't exist, try refreshing`, 'error');
-									socket.emit('tradeFailed', `One or more selected items don't exist, try refreshing`);
-								}
-							} else {
-								socket.emit('alert', `One or more of these items has been blacklisted for trades`);
-								socket.emit('tradeFailed', `One or more of these items has been blacklisted for trades`);
-							}
-						}
-					});
+                // Double check that none of the items are blacklisted in
+                // case the user is trying to trying to trick us and send
+                // a custom item array.
+                if (!itemBanned || admin) {
+
+                  // Make sure the length of the real items is the same as 
+                  // originally requested. This is different if any selected
+                  // items can't be found in either inventory
+                  if ((proposedBotItems.concat(proposedUserItems)).length == data.length || admin) {
+                    let idArr = [];
+                    proposedBotItems.forEach(function(botItem) {
+                      idArr.push(botItem.id);
+                    });
+                    proposedUserItems.forEach(function(userItem) {
+                      idArr.push(userItem.id);
+                    });
+
+                    // If the value of the bot items is less than the user's items.
+                    // If they're an admin the values are ignored
+                    if (botTotalValue <= userTotalValue || admin) {
+                      // Let the user know we're sending their offer now
+                      socket.emit('changeTradeStatus', `Sending offer...`);
+
+                      // Send the offer using the expresstrade module
+                      ET.ITrade.SendOfferToSteamId({steam_id: socketuser.id64, items: idArr.toString(), message: config.tradeMessage}, (err, body) => {
+                        if (err) {
+                          console.error(err);
+                          socket.emit('tradeFailed', `An error occurred, please try again`);
+                        } else {
+                          // If status is 1, trade was sent successfully
+                          if (body.status == 1) {
+                            // Let the user know that the trade is successful.
+                            // Send the client the offerid, so it can generate 
+                            // a link to the offer. Send out an array of item ids,
+                            // so they can be removed from view.
+                            socket.emit('tradeSuccess', `Trade offer sent!`, body.response.offer.id, idArr);
+                            let notif = `[SENT TRADE]`;
+                            if (admin) {
+                              notif = `[ADMIN SENT TRADE]`;
+                            }
+                            // Log that an offer has been sent.
+                            console.log(`
+  ${notif} - Awaiting accept
+  Offer ID: ${body.response.offer.id}`);
+                          } else {
+                            // If status is not 1, something went wrong.
+                            console.error(new Error(body.message));
+                            socket.emit('tradeFailed', `An error occurred, please try again`);
+                          }
+                        }
+                      });
+                    } else {
+                      socket.emit('alert', `Your items must be less than the bot's items! Please add more items to the trade`, 'error');
+                      socket.emit('tradeFailed', `Your items must be less than the bot's items! Please add more items to the trade`);
+                    }
+                  } else {
+                    socket.emit('alert', `One or more selected items don't exist, try refreshing`, 'error');
+                    socket.emit('tradeFailed', `One or more selected items don't exist, try refreshing`);
+                  }
+                } else {
+                  socket.emit('alert', `One or more of these items has been blacklisted for trades`);
+                  socket.emit('tradeFailed', `One or more of these items has been blacklisted for trades`);
+                }
+              }
+            });
+          } else {
+            socket.emit('alert', `Pls, don't 😢`, 'error');
+						socket.emit('tradeFailed', `Pls, don't 😢`);
+          }
 				} else {
 					socket.emit('alert', `Please select some items first!`, 'error');
 					socket.emit('tradeFailed', `Please select some items first!`);
