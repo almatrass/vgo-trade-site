@@ -65,7 +65,8 @@ function getBotInventory(cb) {
 								category: item.category,
 								color: item.color,
 								img: item.image['600px'],
-								price: price
+								price: price,
+                rarity: item.rarity
 							});
 						}
 					});
@@ -148,7 +149,8 @@ function getUserInventory(steamid, refresh, force, cb) {
 										category: item.category,
 										color: item.color,
 										img: item.image['600px'],
-										price: price
+										price: price,
+                    rarity: item.rarity
 									});
 								}
 							});

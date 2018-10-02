@@ -33,7 +33,7 @@
 				</div>
 				<div class="card-body text-center tradeBody" id="userTradeBody">
 					<div class="mainLoader userItemsLoader"></div>
-					<div class="itemBox {[{x.id}]}" ng-repeat="x in userInventory | orderBy: userOrderBy | filter: {'name': userInvSearch}" ng-click="itemClick(x.id, x.price, 'user')" ng-style="getStyle(x.id, 'user')"  data-toggle="tooltip" title="{[{x.name}]}" style="border: 1px solid {[{x.color}]}">
+					<div class="itemBox {[{x.id}]}" ng-repeat="x in userInventory | orderBy: userOrderBy | filter: {'name': userInvSearch}" ng-click="itemClick(x.id, x.price, 'user')" ng-style="getStyle(x.id, 'user')"  data-toggle="tooltip" data-html="true" title="{[{x.name}]}<br>{[{x.rarity}]}" style="border: 1px solid {[{x.color}]}">
 						<div class="itemPrice" ng-bind="x.price | currency"></div>
 						<img class="itemImg" src='{[{x.img}]}'>
 						<div class="itemName truncate" ng-bind="x.name"></div>
@@ -81,7 +81,7 @@
 				</div>
 				<div class="card-body text-center tradeBody" id="botTradeBody">
 					<div class="mainLoader botItemsLoader"></div>
-					<div class="itemBox {[{x.id}]}" ng-repeat="x in botInventory | orderBy: botOrderBy | filter: {'name': botInvSearch}" ng-click="itemClick(x.id, x.price)" ng-style="getStyle(x.id)" data-toggle="tooltip" title="{[{x.name}]}" style="border: 1px solid {[{x.color}]}">
+					<div class="itemBox {[{x.id}]}" ng-repeat="x in botInventory | orderBy: botOrderBy | filter: {'name': botInvSearch}" ng-click="itemClick(x.id, x.price)" ng-style="getStyle(x.id)" data-toggle="tooltip" data-html="true" title="{[{x.name}]}<br>{[{x.rarity}]}" style="border: 1px solid {[{x.color}]}">
 						<div class="itemPrice" ng-bind="x.price | currency"></div>
 						<img class="itemImg" src='{[{x.img}]}'>
 						<div class="itemName truncate" ng-bind="x.name"></div>
