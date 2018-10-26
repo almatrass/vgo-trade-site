@@ -77,7 +77,6 @@ function doTheRefresh() {
 		} else {
 			// If there's no error, update the inventory array:
 			botInventory = items;
-			console.log(`[INVENTORY] Bot inventory refreshed`);
 		}
 	});
 }
