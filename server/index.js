@@ -314,13 +314,24 @@ io.on('connection', socket => {
                   // originally requested. This is different if any selected
                   // items can't be found in either inventory
                   if ((proposedBotItems.concat(proposedUserItems)).length == data.length || admin) {
-                    let idArr = [];
+                    
+                    let botIdArr = [],
+                        userIdArr = [];
                     proposedBotItems.forEach(function(botItem) {
-                      idArr.push(botItem.id);
+                      botIdArr.push(botItem.id);
                     });
                     proposedUserItems.forEach(function(userItem) {
-                      idArr.push(userItem.id);
+                      userIdArr.push(userItem.id);
                     });
+                    
+                    // OLD WAY:
+//                    let idArr = [];
+//                    proposedBotItems.forEach(function(botItem) {
+//                      idArr.push(botItem.id);
+//                    });
+//                    proposedUserItems.forEach(function(userItem) {
+//                      idArr.push(userItem.id);
+//                    });
 
                     // If the value of the bot items is less than the user's items.
                     // If they're an admin the values are ignored
@@ -334,7 +345,7 @@ io.on('connection', socket => {
                       // items: idArr.toString()
                       
                       // NEW WAY:
-                      ET.ITrade.SendOfferToSteamId({steam_id: socketuser.id64, items_to_send: proposedBotItems, items_to_receive: proposedUserItems, message: config.tradeMessage}, (err, body) => {
+                      ET.ITrade.SendOfferToSteamId({steam_id: socketuser.id64, items_to_send: botIdArr.toString(), items_to_receive: userIdArr.toString(), message: config.tradeMessage}, (err, body) => {
                         if (err) {
                           console.error(err);
                           socket.emit('tradeFailed', `An error occurred, please try again`);
