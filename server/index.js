@@ -334,7 +334,7 @@ io.on('connection', socket => {
                       // items: idArr.toString()
                       
                       // NEW WAY:
-                      ET.ITrade.SendOfferToSteamId({steam_id: socketuser.id64, items_to_send: proposedBotItems.toString(), items_to_receive: proposedUserItems.toString(), message: config.tradeMessage}, (err, body) => {
+                      ET.ITrade.SendOfferToSteamId({steam_id: socketuser.id64, items_to_send: proposedBotItems, items_to_receive: proposedUserItems, message: config.tradeMessage}, (err, body) => {
                         if (err) {
                           console.error(err);
                           socket.emit('tradeFailed', `An error occurred, please try again`);
