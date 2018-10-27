@@ -356,7 +356,12 @@ io.on('connection', socket => {
                             // Send the client the offerid, so it can generate 
                             // a link to the offer. Send out an array of item ids,
                             // so they can be removed from view.
-                            socket.emit('tradeSuccess', `Trade offer sent!`, body.response.offer.id, idArr);
+                            
+                            // OLD WAY:
+//                            socket.emit('tradeSuccess', `Trade offer sent!`, body.response.offer.id, idArr);
+                            
+                            socket.emit('tradeSuccess', `Trade offer sent!`, body.response.offer.id, botIdArr.concat(userIdArr));
+                            
                             let notif = `[SENT TRADE]`;
                             if (admin) {
                               notif = `[ADMIN SENT TRADE]`;
