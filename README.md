@@ -4,8 +4,6 @@
 
 vgo-trade-site is a simple trading site for VGO, build to show off the WAX Expresstrade API.
 
-You can view an example of the site here: http://trade.gain.gg.
-
 You can support my projects by using my DigitalOcean referral link (bonus $10 when you deposit $5): https://m.do.co/c/126d9f75d958
 
 You may use the site for commercial purposes free of charge.
@@ -25,14 +23,22 @@ Then, open CMD (for Windows), or Terminal (Max/Linux), and change to the vgo-tra
 $ cd /Users/Almatrass/Documents/vgo-trade-site-master
 ```
 
-Now, open the config file in a text editor: 
+Now, open the `.env` file in a text editor: 
+
+```bash
+$ open ./config/.env
+```
+
+You should update the `.env` file with your OPSkins API Key and OPSkins Secret Values.
+
+Now, open the `config.js` file in a text editor: 
 
 ```bash
 $ open ./config/config.js
 ```
 
 All the config stuff is commented nicely, and you shouldn't have too much bother with it. 
-The only important things are the `opskinsApiKey`, `opskinsSecret` and `returnUrl` values.
+The only important thing is the `returnUrl` value.
 
 ##### returnUrl
 The `returnUrl` value should stay the same if running locally.
@@ -41,7 +47,7 @@ Make sure to include the port if it's not 80 or 443.
 ```js
 returnUrl: 'http://localhost/auth/opskins/authenticate'
 // Becomes
-returnUrl: 'http://382.73.93.763:4073/auth/opskins/authenticate'
+returnUrl: 'http://234.73.93.159:4073/auth/opskins/authenticate'
 ```
 
 ##### opskinsApiKey and opskinsSecret
@@ -111,7 +117,7 @@ again to install the node modules.
 
 Before spawning our process forever, test if the server is working, by running:
 ```bash
-$ node ./server/index.js
+$ node ./index.js
 ```
 
 Visit your IP address in a browser, and you should see the site.
@@ -125,7 +131,7 @@ The `-g` argument means the package will be installed globally, so we can use it
 
 Now, in your `/vgo-trade` directory, you can simply run:
 ```bash
-$ pm2 start ./server/index.js
+$ pm2 start ./index.js
 ```
 
 To view process logs at anytime, you can logon to your VPS and run
@@ -137,12 +143,12 @@ If your node server crashes, PM2 will automatically spawn a new process.
 
 If your droplet crashes or reboots, simply come back on and spawn the process again:
 ```bash
-$ pm2 start /vgo-trade/server/index.js
+$ pm2 start /vgo-trade/index.js
 ```
 or
 ```bash
 $ cd /vgo-trade
-$ pm2 start ./server/index.js
+$ pm2 start ./index.js
 ```
 
 ### Editing the code
