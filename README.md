@@ -23,6 +23,8 @@ Then, open CMD (for Windows), or Terminal (Max/Linux), and change to the vgo-tra
 $ cd /Users/Almatrass/Documents/vgo-trade-site-master
 ```
 
+First, rename the `.env.example` file to `.env`.
+
 Now, open the `.env` file in a text editor: 
 
 ```bash
