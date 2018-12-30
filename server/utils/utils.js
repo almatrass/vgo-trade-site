@@ -1,6 +1,3 @@
-// This code was written by Almatrass. 
-// It is free to use however you wish.
-
 module.exports = {
 	removeObjArr
 }
