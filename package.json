@@ -1,6 +1,6 @@
 {
   "name": "vgo-trade-site",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "A simple open-source VGO trading site, built to show WAX Expresstrade in use!",
   "main": "index.js",
   "scripts": {
