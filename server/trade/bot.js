@@ -33,7 +33,7 @@ function getBotInventory(cb) {
   function getIt() {
     ET.IUser.GetInventory({
       page: page,
-      per_page: 1
+      per_page: 500
     }, (err, body) => {
       if (err)
         return cb(err);
@@ -138,7 +138,7 @@ function getUserInventory(steamid, refresh, force, cb) {
       ET.ITrade.GetUserInventoryFromSteamId({
         steam_id: steamid,
         page: page,
-        per_page: 1
+        per_page: 500
       }, (err, body) => {
         if (err)
           return cb(err);
